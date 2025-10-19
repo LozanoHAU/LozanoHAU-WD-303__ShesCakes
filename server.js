@@ -4,10 +4,10 @@ const session = require('express-session');
 const path = require('path');
 const crypto = require('crypto');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' ? true : 'http://localhost:3000',
   credentials: true
 }));
 app.use(express.json());
