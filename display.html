@@ -181,6 +181,7 @@
           if (flavor) url += `flavor=${encodeURIComponent(flavor)}&`;
           if (size) url += `size=${encodeURIComponent(size)}&`;
           if (sort !== 'relevance') url += `sort=${sort}&`;
+          url += `t=${Date.now()}`; // Cache busting
 
           console.log('Fetching products from:', url);
           const response = await fetch(url);

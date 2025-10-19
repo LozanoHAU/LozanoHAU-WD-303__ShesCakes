@@ -358,6 +358,11 @@ app.get('/email-mockup', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'email-mockup.html'));
 });
 
+// Test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ success: true, message: 'API is working!', timestamp: new Date().toISOString() });
+});
+
 app.get('/api/products', (req, res) => {
   console.log('Products API called with query:', req.query);
   let result = [...products];
