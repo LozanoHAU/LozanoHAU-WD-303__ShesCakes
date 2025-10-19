@@ -182,17 +182,28 @@
           if (size) url += `size=${encodeURIComponent(size)}&`;
           if (sort !== 'relevance') url += `sort=${sort}&`;
 
+          console.log('Fetching products from:', url);
           const response = await fetch(url);
+          console.log('Response status:', response.status);
+          console.log('Response headers:', response.headers);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
           const result = await response.json();
+          console.log('API response:', result);
 
           if (result.success) {
             products = result.data;
             renderProducts(products);
+          } else {
+            throw new Error(result.message || 'API returned success: false');
           }
         } catch (error) {
           console.error('Error loading products:', error);
           document.getElementById('products').innerHTML = 
-            '<div class="loading" style="color:red;">Failed to load products. Make sure the API server is running.</div>';
+            '<div class="loading" style="color:red;">Failed to load products. Error: ' + error.message + '</div>';
         }
       }
 

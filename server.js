@@ -18,7 +18,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false,
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000
   }
@@ -359,6 +359,7 @@ app.get('/email-mockup', requireAuth, (req, res) => {
 });
 
 app.get('/api/products', (req, res) => {
+  console.log('Products API called with query:', req.query);
   let result = [...products];
   const { search, flavor, size, sort } = req.query;
 
@@ -383,6 +384,7 @@ app.get('/api/products', (req, res) => {
   if (sort === 'price-desc') result.sort((a, b) => b.price - a.price);
   if (sort === 'name-asc') result.sort((a, b) => a.name.localeCompare(b.name));
 
+  console.log('Returning products:', result.length);
   res.json({ success: true, data: result, count: result.length });
 });
 
