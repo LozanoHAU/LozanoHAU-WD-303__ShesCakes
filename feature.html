@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Features — She's Cakes</title>
+  <link rel="icon" type="image/x-icon" href="images/minilogo.ico">
+  <meta name="description" content="Contact Sherlylyn Cakes for custom orders, questions, or feedback." />
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Oooh+Baby&display=swap" rel="stylesheet">
+  <style>
+      body{font-family:Inter, system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;   --accent-strong: #C83F6F;
+    --accent-light: #FF98B9;
+    --text-dark: #272727;
+    --muted: #9b9b9b;}
+      .container{max-width:2000px;margin:0 auto;padding:16px}
+
+header.hero{
+  background-image:url('images/feature-hero.png');
+  padding:28px;
+  border-radius:8px;
+  height:480px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color: #ffffff;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+header.hero h1,
+header.hero p.lead {
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+header.hero p.lead {
+  margin-top: 0.6rem;
+  opacity: 0.95;
+}
+
+    .button.small-hero {
+    padding: 1em 2em;
+    margin-top: 30px;
+    border: none;
+    border-radius: 9999px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 3px solid white;
+    background: transparent;
+    }
+    .button.small-hero:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    outline: 2px solid #ffc3d6;
+    box-shadow: 4px 5px 17px -4px #db789e;
+    }
+    .button.small-hero::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #FF98B9;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+    }
+    .button.small-hero:hover::before { width: 250%; }
+
+      h1{Margin:.2rem 0;font-size:1.6rem}
+      p.lead{margin:.4rem 0;color:#444}
+      .cta-row{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+      .btn{padding:10px 16px;border-radius:6px;border:0;cursor:pointer}
+      .btn.primary{background:#d9534f;color:white}
+      .btn.secondary{background:transparent;border:1px solid #d9534f;color:#d9534f}
+      .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:62px}
+      @media(min-width:800px){.grid{grid-template-columns:repeat(3,1fr)} h1{font-size:2rem}}
+.card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-size: 30px;
+}
+
+.card strong {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+      .gallery iframe{width:100%;height:600px;object-fit:cover;border-radius:6px}
+      .small{font-size:.9rem;color:#666}
+
+    .div-bg-1 { padding: 3px; }
+    .div-bg-2 {padding: 30px; }
+    .div-bg-3 { background: #8d1bf1; }
+    .div-bg-4 { background: #1993fe; }
+    .div-bg-5 { background: #ff058a; padding: 3px; }
+    .div-bg-6 { background: #488601; padding: 30px; }
+    .div-bg-7 { background: #e3ff71; }
+    .div-bg-8 { background: #ff0000; padding-right: 40px; }
+    .div-bg-9 { background: #0000ff; padding: 20px; color: #fff; }
+    .div-bg-10 { background: #00ff2f; }
+    .div-bg-11 { background: #52f1ff; }
+    .div-bg-12 { background: #ff0084; }
+
+    .login-box {
+  position: relative;
+  width: 100%;
+  min-width: 300px;
+  padding: 2.5rem;
+  margin: 2rem auto;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: white;
+  box-shadow:
+    10px 0px 0 0 var(--accent-light),
+    0 10px 30px rgba(0,0,0,0.13);
+  transform: none;
+}
+
+.login-box p:first-child {
+  margin: 0 0 6px;
+  padding: 0;
+  color: var(--accent-strong);
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.login-box .subtitle {
+  color: var(--accent-strong);
+  font-size: 0.95rem;
+  margin-top: -6px;
+  margin-bottom: 20px;
+  text-align:left;
+  line-height:1.4;
+}
+
+.login-box .user-box { position: relative; margin-bottom: 20px; }
+
+.login-box .user-box input,
+.login-box .user-box textarea,
+.login-box .user-box select {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--text-dark);
+  margin-bottom: 18px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.login-box .user-box textarea {
+  padding:10px;
+  margin-top:15px;
+  border:1px solid var(--accent-strong);
+  resize:vertical;
+  background-color: #ffecf2;
+  border-radius:6px;
+}
+
+.login-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--accent-light);
+  pointer-events: none;
+  transition: .25s;
+  font-weight: 600;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box .user-select:focus ~ label,
+.login-box .user-box input:valid ~ label,
+.login-box .user-box textarea:focus ~ label,
+.login-box .user-box textarea:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: var(--accent-strong);
+  font-size: 12px;
+}
+
+.btn-animated {
+  --anim-color: var(--accent-light);
+  position: relative;
+  display: inline-block;
+  padding: 10px 22px;
+  font-weight: 800;
+  color: var(--accent-strong);
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .25s ease;
+  margin-top: 0;
+  letter-spacing: 3px;
+  background: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+
+.btn-animated:hover {
+  background: var(--accent-strong);
+  color: #fff;
+  --anim-color: #ffffff;
+  border-radius: 6px;
+}
+
+.btn-animated span { position: absolute; display: block; z-index: 1; pointer-events:none; }
+.btn-animated .btn-text { position: relative; z-index: 3; color: inherit; }
+
+.btn-animated span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--anim-color));
+  animation: btn-anim1 1.5s linear infinite;
+}
+@keyframes btn-anim1 { 0% { left: -100%; } 50%,100% { left: 100%; } }
+
+.btn-animated span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--anim-color));
+  animation: btn-anim2 1.5s linear infinite;
+  animation-delay: .375s;
+}
+@keyframes btn-anim2 { 0% { top: -100%; } 50%,100% { top: 100%; } }
+
+.btn-animated span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, var(--anim-color));
+  animation: btn-anim3 1.5s linear infinite;
+  animation-delay: .75s;
+}
+@keyframes btn-anim3 { 0% { right: -100%; } 50%,100% { right: 100%; } }
+
+.btn-animated span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, var(--anim-color));
+  animation: btn-anim4 1.5s linear infinite;
+  animation-delay: 1.125s;
+}
+@keyframes btn-anim4 { 0% { bottom: -100%; } 50%,100% { bottom: 100%; } }
+
+.btn-clear {
+  padding:10px 20px;
+  font-weight:700;
+  color: var(--text-dark);
+  background:#ffffff;
+  border:2px solid var(--accent-light);
+  border-radius:6px;
+  cursor:pointer;
+  transition:.18s;
+}
+.btn-clear:hover { transform: translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.06); }
+
+@media (max-width: 520px) {
+  .login-box { padding: 1.6rem; width: 92%; }
+  .login-box p:first-child { font-size: 1.2rem; }
+  .btn-animated { letter-spacing: 1px; padding: 9px 16px; }
+  .btn-animated .btn-text { font-size: 14px; }
+}
+
+  .div-bg-2.responsive-images {
+    display: flex;
+    gap: 4px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+
+  .div-bg-2.responsive-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 8px;
+
+  }
+
+  .div-bg-2.responsive-images img:first-child { flex: 1 1 60%; min-width: 320px; margin-left: -40px;}
+  .div-bg-2.responsive-images img:last-child  { flex: 1 1 35%; min-width: 220px; margin-top: 40%;}
+
+  @media (max-width: 1100px) {
+    .div-bg-2.responsive-images { gap: 16px; }
+    .div-bg-2.responsive-images img { flex: 1 1 100%; }
+  }
+
+  @media (max-width: 520px) {
+    .div-bg-2.responsive-images { padding: 8px 0; }
+    .div-bg-2.responsive-images img { border-radius: 6px; }
+  }
+
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="header-nav" role="navigation" aria-label="Main nav">
+      <nav>
+        <div class="nav-icons">
+          <a href="/feature" id="nav-home" aria-label="Home">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span class="nav-label">Home</span>
+          </a>
+
+          <a href="/display" id="nav-display" aria-label="Display">
+            <i class="fas fa-birthday-cake" aria-hidden="true"></i>
+            <span class="nav-label">Easy Bake</span>
+          </a>
+
+          <a href="/contact" id="nav-contact" aria-label="Contact">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span class="nav-label">Contact</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="header-logo">
+      <a href="#" style="text-decoration:none;color:inherit">
+        <img src="images/logo.png" width="224" height="167" alt="Sherlylyn Cakes logo">
+      </a>
+    </div>
+
+    <div class="header-extra" aria-hidden="true">
+      <div class="social-extra" role="group" aria-label="Social and order">
+        <div class="social-row" aria-hidden="false">
+          <a class="extra-icon" href="https://www.facebook.com/sherlylyncakes" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+          </a>
+          <a class="extra-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+        </div>
+        <button class="button" id="orderNow" type="button" onclick="document.getElementById('order').scrollIntoView()">Order Now</button>
+      </div>
+    </div>
+
+  </header>
+
+  <div class="div-bg-1">
+    <div class="container">
+      <header class="hero">
+        <h1 style="font-size:95px;">Make the Moment Sweeter</h1>
+        <p class="lead"><strong>From cupcakes to show-stopping 3-tier wedding cakes — handcrafted and made-to-order</strong></p>
+
+        <div class="cta-row" style="margin-top:12px;">
+          <button class="button small-hero" onclick="document.getElementById('order').scrollIntoView()">Order Now</button>
+        </div>
+      </header>
+      <br><br><br>
+      <section style="margin-top:18px">
+        <h2 style="margin-bottom:8px;text-align:center;font-size:50px;">Why customers choose us</h2>
+        <br>
+        <br><br>
+        <div class="grid">
+          <div class="card">
+            <i class="fas fa-cake" style="font-size:120px; margin-bottom:20px;" aria-hidden="true"></i>
+            <strong>Custom Design</strong>
+            <p class="small">Personalized consultations to match your theme and budget.</p>
+          </div>
+
+          <div class="card">
+            <i class="fas fa-egg" style="font-size:120px; margin-bottom:20px;" aria-hidden="true"></i>
+            <strong>Premium Ingredients</strong>
+            <p class="small">Real butter, quality chocolate, natural flavors.</p>
+          </div>
+
+          <div class="card">
+            <i class="fas fa-truck" style="font-size:120px; margin-bottom:20px;" aria-hidden="true"></i>
+            <strong>Local Delivery</strong>
+            <p class="small">Pickup & local delivery with careful handling and setup.</p>
+          </div>
+        </div>
+
+      </section>
+<br><br><br><br><br>
+      <section id="gallery" style="margin-top:18px">
+        <h2 style="text-align:left; font-size:50px">Take a look of our beautiful designs this year!</h2><br><br>
+        <div class="grid gallery">
+
+                    <div>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsherlylyncakes%2Fposts%2Fpfbid09enh4y4DEQq1tCN1EEQLoXawW4GrqC4qjkdS3mbiU3QyLg6hG91s9cHkjFtUz32Fl&show_text=true&width=500" width="500" height="786" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+
+                    <div>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsherlylyncakes%2Fposts%2Fpfbid02cCYKmAAWtEmiw8o4gyS7Pkttu6Q3HEz2JcxwdwkQSVrPb5QWhRjmeNwo4vE4n4gml&show_text=true&width=500" width="500" height="772" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+
+                    <div>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsherlylyncakes%2Fposts%2Fpfbid0yzsFxfdY3q1VqDQmFrNVcHcazmRzP69DHvqXpy41vGGNmZqTEKbADgYtC2EXip9xl&show_text=true&width=500" width="500" height="758" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+
+                    <div>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsherlylyncakes%2Fposts%2Fpfbid0Y3WqP6N5QPqVcNrcLoeE3T7B7qacJ2eAFNVYbw7KrSN3tD76gmi5fCZWiWzdpWDyl&show_text=false&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+
+                              <div>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsherlylyncakes%2Fposts%2Fpfbid0fuMjD2dNRA7jX3sRoQ1HoarWx3ieT54BgXBJFwXp3d932Qk8t9nCG72W23BmMcEml&show_text=false&width=500" width="500" height="697" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+
+                              <div>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsherlylyncakes%2Fposts%2Fpfbid02GuTvARPut2VBEFyLDX11sRb728sxRMaAzNw5ywX9hUnbqhgUXvGNETNjwPwL5nB3l&show_text=false&width=500" width="500" height="659" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+
+        </div>
+
+      </section>
+<hr><br><br>
+      <div class="div-bg-2 responsive-images">
+        <img src="images/info1.png" alt="info image 1">
+        <img src="images/info2.png" alt="info image 2">
+      </div>
+
+      <br><br><br>
+
+      <section id="order" style="margin-top:18px">
+        <div class="login-box" role="region" aria-labelledby="order-heading">
+          <p id="order-heading" style="font-size:55px;">Reserve your date</p><br><br>
+          <p class="subtitle">Tell us the details below and we'll confirm availability and send a quote.</p> <br>
+
+          <form aria-label="Order form" method="post" action="#">
+            <div class="user-box">
+              <input required id="order-name" name="name" type="text" aria-required="true">
+              <label for="order-name">Full name *</label>
+            </div>
+
+            <div class="user-box">
+              <input required id="order-phone" name="phone" type="tel" aria-required="true">
+              <label for="order-phone">Phone *</label>
+            </div>
+
+            <div class="user-box">
+              <input required id="order-email" name="email" type="text" aria-required="true">
+              <label for="order-email">Email</label>
+            </div>
+
+          <div class="user-box">
+           <label for="order-date">Event Date *</label><br>
+            <input required id="order-date"  name="eventDate" type="date" aria-required="true">
+          </div>
+
+            <div class="user-box">
+              <input required id="order-address" name="address" type="text" aria-required="true">
+              <label for="order-address">Pickup / Delivery address </label>
+            </div>
+
+
+            <div class="user-box">
+              <label for="order-type" style="position:static;padding:0;margin-bottom:8px;color:var(--accent-light);font-size:14px;">Type of cake</label>
+              <select id="order-type" name="cakeType" class="user-select" aria-label="Type of cake" required>
+                <option value="" disabled selected>Type of cake — choose</option>
+                <option>Birthday — single tier</option>
+                <option>Wedding — multi-tier</option>
+                <option>Cupcakes / Desserts</option>
+              </select>
+              
+            </div>
+            <div class="user-box">
+            <label for="order-message">Custom Instruction</label><br>
+              <textarea id="order-message" required aria-required="true" name="message" rows="4" placeholder="Message / links to photos (Instagram or FB)"></textarea>
+            </div>
+
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap;">
+              <button type="submit" class="btn-animated" aria-label="Request quote">
+                <span></span><span></span><span></span><span></span>
+                <span class="btn-text">Request Quote</span>
+              </button>
+
+              <button type="button" class="btn-clear" onclick="alert('Call: 0961-344-3244')">Call Us</button>
+            </div>
+          </form>
+
+          <br>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  const orderForm = document.querySelector('form[aria-label="Order form"]');
+  
+  orderForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+      name: document.getElementById('order-name').value,
+      phone: document.getElementById('order-phone').value,
+      email: document.getElementById('order-email').value,
+      eventDate: document.getElementById('order-date').value,
+      address: document.getElementById('order-address').value,
+      cakeType: document.getElementById('order-type').value,
+      message: document.getElementById('order-message').value
+    };
+    
+    const submitBtn = orderForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.querySelector('.btn-text').textContent;
+    submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    try {
+      const response = await fetch('http://localhost:3000/api/customers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert('✅ Order request submitted successfully! We will contact you soon to confirm your order.');
+  
+        orderForm.reset();
+      } else {
+        alert('❌ There was an error submitting your order. Please try again or call us directly.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('❌ Connection error. Please check if the server is running or try calling us directly at 0961-344-3244.');
+    } finally {
+      submitBtn.querySelector('.btn-text').textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+});
+
+  const orderDateInput = document.getElementById('order-date');
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minDate = tomorrow.toISOString().split('T')[0];
+  orderDateInput.setAttribute('min', minDate);
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Easy Bake – She's Cakes</title>
+  <link rel="icon" type="image/x-icon" href="images/minilogo.ico">
+  <meta name="description" content="Browse and order cakes from Sherlylyn Cakes." />
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Oooh+Baby&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Inter, system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+
+    .div-bg-1 {padding-top: 26px;}
+    .div-bg-1 .embedded{ --accent:#c94f7c; --muted:#666; --card-bg:#fff; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; box-sizing:border-box; padding:14px; display:block; border-radius:8px; }
+    .div-bg-1 .embedded { min-width: 980px; width:100%; margin: 0 auto; }
+
+    .div-bg-1 .embedded header{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;padding:12px 8px;text-align:center;}
+    .div-bg-1 .embedded header h1{margin:0;font-size:34px;line-height:1.05;font-weight:700;letter-spacing:-0.3px}
+    .div-bg-1 .embedded header > div > div {color:var(--muted);font-size:16px;max-width:760px;margin-top:4px;}
+
+    .div-bg-1 .embedded .topbar{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+    .div-bg-1 .embedded .controls{display:flex;gap:10px;align-items:center;margin-left:auto}
+    .div-bg-1 .embedded .search{padding:8px 12px;border-radius:8px;border:1px solid #eee;min-width:220px}
+    .div-bg-1 .embedded .select{padding:8px;border-radius:8px;border:1px solid #eee}
+    .div-bg-1 .embedded .container{display:flex;gap:18px;align-items:flex-start}
+
+    .div-bg-1 .embedded .products{flex:1;display:grid;grid-template-columns:repeat(3, 1fr);gap:32px;height: auto;max-height:580px;overflow-y:auto;padding-right:6px;background:transparent;}
+    .div-bg-1 .embedded .card{background:var(--card-bg);padding:10px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px;position:relative;min-height:220px}
+    .div-bg-1 .embedded .card img{width:100%;height:240px;object-fit:cover;border-radius:8px}
+    .div-bg-1 .embedded .meta{display:flex;justify-content:space-between;align-items:center;gap:6px}
+    .div-bg-1 .embedded .price{font-weight:700;color:var(--accent)}
+    .div-bg-1 .embedded .desc{color:var(--muted);font-size:13px}
+    .div-bg-1 .embedded .addrow{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:auto}
+    .div-bg-1 .embedded .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;box-shadow:0 6px 12px rgba(201,79,124,.12)}
+    .div-bg-1 .embedded .btn.secondary{background:#f4f4f4;color:#333}
+    .div-bg-1 .embedded .qty{display:flex;gap:6px;align-items:center}
+    .div-bg-1 .embedded .qty input{width:56px;padding:6px;border-radius:8px;border:1px solid #eee;text-align:center}
+    .div-bg-1 .embedded aside.cart{width:320px;background:linear-gradient(180deg,#fff 0%, #fffafc 100%);padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.06);height:fit-content}
+    .div-bg-1 .embedded .cart h3{margin:0 0 6px 0}
+    .div-bg-1 .embedded .cart-list{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;padding-right:6px}
+    .div-bg-1 .embedded .cart-item{display:flex;gap:8px;align-items:center;border-radius:8px;padding:8px;background:#fff}
+    .div-bg-1 .embedded .cart-item img{width:58px;height:58px;object-fit:cover;border-radius:8px}
+    .div-bg-1 .embedded .totals{border-top:1px dashed #eee;padding-top:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+    .div-bg-1 .embedded .tag{padding:4px 8px;background:#fff;border-radius:999px;border:1px solid #f0e7ef;font-size:12px}
+    .div-bg-1 .embedded footer{margin-top:14px;color:var(--muted);font-size:13px}
+    .div-bg-1 .embedded .loading{text-align:center;padding:2rem;color:var(--muted);grid-column:1/-1;}
+
+    @media(max-width:980px){
+      .div-bg-1 .embedded .products{grid-template-columns:repeat(2, 1fr); height:60vh;}
+      .div-bg-1 .embedded aside.cart{display:none}
+      .div-bg-1 .embedded header h1{font-size:28px;}
+    }
+    @media(max-width:620px){
+      .div-bg-1 .embedded .products{grid-template-columns:repeat(1, 1fr); height:56vh;}
+      .div-bg-1 .embedded header h1{font-size:24px;}
+    }
+
+    .div-bg-1 .embedded .products::-webkit-scrollbar{width:10px}
+    .div-bg-1 .embedded .products::-webkit-scrollbar-thumb{background:linear-gradient(#f0c2d6,#e8b6cf);border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="header-nav" role="navigation" aria-label="Main nav">
+      <nav>
+        <div class="nav-icons">
+          <a href="/feature" id="nav-home" aria-label="Home">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span class="nav-label">Home</span>
+          </a>
+          <a href="/display" id="nav-display" aria-label="Display">
+            <i class="fas fa-birthday-cake" aria-hidden="true"></i>
+            <span class="nav-label">Easy Bake</span>
+          </a>
+          <a href="/contact" id="nav-contact" aria-label="Contact">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span class="nav-label">Contact</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="header-logo">
+      <a href="/feature" style="text-decoration:none;color:inherit">
+        <img src="images/logo.png" width="224px" height="167px" alt="Sherlylyn Cakes logo">
+      </a>
+    </div>
+
+    <div class="header-extra" aria-hidden="true">
+      <div class="social-extra" role="group" aria-label="Social and order">
+        <div class="social-row" aria-hidden="false">
+          <a class="extra-icon" href="https://www.facebook.com/sherlylyncakes" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+          </a>
+          <a class="extra-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+        </div>
+        <a href="/feature#order"><button class="button" id="orderNow" type="button">Order Now</button></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="div-bg-1">
+    <div class="embedded" aria-live="polite">
+      <header>
+        <div>
+          <h1>Easy Bake Delivery</h1><br>
+          <div style="color:var(--muted);font-size:13px">Baked quickly and efficiently – perfect for quick orders and fast delivery.</div>
+        </div>
+      </header>
+
+      <br>
+      <div class="topbar">
+        <div style="display:flex;gap:8px;align-items:center">
+          <input id="search" class="search" placeholder="Search cakes (name, description)">
+          <select id="sort" class="select" title="Sort">
+            <option value="relevance">Sort: Relevance</option>
+            <option value="price-asc">Price ↑</option>
+            <option value="price-desc">Price ↓</option>
+            <option value="name-asc">Name A→Z</option>
+          </select>
+          <select id="flavorFilter" class="select">
+            <option value="">Flavor: All</option>
+          </select>
+          <select id="sizeFilter" class="select">
+            <option value="">Size: All</option>
+          </select>
+        </div>
+
+        <div class="controls">
+          <div class="tag">Pickup / Delivery: Select at checkout</div>
+          <button id="clearFilters" class="btn secondary">Clear</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <main class="products" id="products" aria-live="polite" aria-label="Product list">
+          <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading products...</div>
+        </main>
+
+        <aside class="cart" aria-labelledby="cart-title">
+          <h3 id="cart-title">Cart</h3>
+          <div id="cartList" class="cart-list"></div>
+          <div class="totals">
+            <div>
+              <div style="color:var(--muted);font-size:13px">Total</div>
+              <div style="font-weight:700;font-size:16px" id="cartTotal">₱0.00</div>
+            </div>
+            <div>
+              <button class="btn" id="checkout">Checkout</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <br><br>
+      </footer>
+
+      <script>
+      const API_URL = 'http://localhost:3000/api';
+      let products = [];
+      let cart = {};
+
+      const formatPHP = v => '₱' + (v).toLocaleString('en-PH',{minimumFractionDigits:0,maximumFractionDigits:0});
+
+      async function loadProducts() {
+        try {
+          const search = document.getElementById('search').value.trim();
+          const flavor = document.getElementById('flavorFilter').value;
+          const size = document.getElementById('sizeFilter').value;
+          const sort = document.getElementById('sort').value;
+
+          let url = `${API_URL}/products?`;
+          if (search) url += `search=${encodeURIComponent(search)}&`;
+          if (flavor) url += `flavor=${encodeURIComponent(flavor)}&`;
+          if (size) url += `size=${encodeURIComponent(size)}&`;
+          if (sort !== 'relevance') url += `sort=${sort}&`;
+
+          const response = await fetch(url);
+          const result = await response.json();
+
+          if (result.success) {
+            products = result.data;
+            renderProducts(products);
+          }
+        } catch (error) {
+          console.error('Error loading products:', error);
+          document.getElementById('products').innerHTML = 
+            '<div class="loading" style="color:red;">Failed to load products. Make sure the API server is running.</div>';
+        }
+      }
+
+      function populateFilters() {
+        if (products.length === 0) return;
+        
+        const flavorFilter = document.getElementById('flavorFilter');
+        const sizeFilter = document.getElementById('sizeFilter');
+        
+        const flavors = Array.from(new Set(products.flatMap(p => p.flavors))).sort();
+        flavorFilter.innerHTML = '<option value="">Flavor: All</option>';
+        flavors.forEach(f => {
+          const opt = document.createElement('option');
+          opt.value = f;
+          opt.textContent = f;
+          flavorFilter.appendChild(opt);
+        });
+
+        const sizes = Array.from(new Set(products.flatMap(p => p.sizes))).sort();
+        sizeFilter.innerHTML = '<option value="">Size: All</option>';
+        sizes.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          sizeFilter.appendChild(opt);
+        });
+      }
+
+      function renderProducts(productList) {
+        const container = document.getElementById('products');
+        
+        if (productList.length === 0) {
+          container.innerHTML = '<div class="loading">No products found matching your criteria.</div>';
+          return;
+        }
+
+        container.innerHTML = '';
+        
+        productList.forEach(p => {
+          const el = document.createElement('article');
+          el.className = 'card';
+          el.innerHTML = `
+            <img loading="lazy" src="${p.image}" alt="${p.name}">
+            <div class="meta">
+              <div style="max-width:65%">
+                <strong style="display:block">${p.name}</strong>
+                <div class="desc">${p.description}</div>
+              </div>
+              <div style="text-align:right">
+                <div class="price">${formatPHP(p.price)}</div>
+                <div style="font-size:12px;color:var(--muted)">${p.sizes.slice(0,2).join(' • ')}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="desc" style="margin-left:auto">${p.flavors.join(', ')}</div>
+            </div>
+            <div class="addrow">
+              <div style="display:flex;gap:8px;align-items:center">
+                <div class="qty">
+                  <button class="btn secondary qty-minus" data-id="${p.id}">-</button>
+                  <input type="number" value="1" min="1" class="qty-input" data-id="${p.id}">
+                  <button class="btn secondary qty-plus" data-id="${p.id}">+</button>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="btn add-to-cart" data-id="${p.id}">Add</button>
+                <button class="btn secondary avail-service" data-id="${p.id}">View</button>
+              </div>
+            </div>
+          `;
+          container.appendChild(el);
+        });
+        
+        populateFilters();
+      }
+
+      function addToCart(productId, qty) {
+        const p = products.find(x => x.id === productId);
+        if (!p) return;
+        if (!cart[productId]) cart[productId] = {...p, qty: 0};
+        cart[productId].qty += qty;
+        renderCart();
+      }
+
+      function updateCartQty(productId, qty) {
+        if (cart[productId]) {
+          cart[productId].qty = qty;
+          if (qty <= 0) delete cart[productId];
+          renderCart();
+        }
+      }
+
+      function renderCart() {
+        const list = document.getElementById('cartList');
+        list.innerHTML = '';
+        let total = 0;
+
+        for (const [id, item] of Object.entries(cart)) {
+          const div = document.createElement('div');
+          div.className = 'cart-item';
+          div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div style="flex:1">
+              <div class="title">${item.name}</div>
+              <div style="font-size:13px;color:var(--muted)">${formatPHP(item.price)} • ${item.qty} pc(s)</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:700">${formatPHP(item.price * item.qty)}</div>
+              <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:6px">
+                <button class="btn secondary cart-minus" data-id="${id}">-</button>
+                <button class="btn secondary cart-plus" data-id="${id}">+</button>
+                <button class="btn secondary cart-remove" data-id="${id}">×</button>
+              </div>
+            </div>
+          `;
+          list.appendChild(div);
+          total += item.price * item.qty;
+        }
+
+        document.getElementById('cartTotal').textContent = formatPHP(total);
+      }
+
+      document.body.addEventListener('click', e => {
+        if (e.target.matches('.add-to-cart')) {
+          const id = e.target.dataset.id;
+          const input = document.querySelector('.qty-input[data-id="'+id+'"]');
+          const qty = Math.max(1, parseInt(input?.value || 1));
+          addToCart(id, qty);
+          alert('Added to cart!');
+        }
+        if (e.target.matches('.qty-plus')) {
+          const id = e.target.dataset.id;
+          const input = document.querySelector('.qty-input[data-id="'+id+'"]');
+          input.value = Math.max(1, parseInt(input.value||1) + 1);
+        }
+        if (e.target.matches('.qty-minus')) {
+          const id = e.target.dataset.id;
+          const input = document.querySelector('.qty-input[data-id="'+id+'"]');
+          input.value = Math.max(1, parseInt(input.value||1) - 1);
+        }
+        if (e.target.matches('.cart-minus')) {
+          const id = e.target.dataset.id;
+          updateCartQty(id, Math.max(0, (cart[id].qty||1) - 1));
+        }
+        if (e.target.matches('.cart-plus')) {
+          const id = e.target.dataset.id;
+          updateCartQty(id, (cart[id].qty||0) + 1);
+        }
+        if (e.target.matches('.cart-remove')) {
+          delete cart[e.target.dataset.id];
+          renderCart();
+        }
+        if (e.target.matches('.avail-service')) {
+          const id = e.target.dataset.id;
+          const p = products.find(x => x.id === id);
+          alert('Product Details:\n\n' + p.name + '\n' + p.description + '\nPrice: ' + formatPHP(p.price));
+        }
+      });
+
+      document.getElementById('search').addEventListener('input', () => {
+        clearTimeout(window.searchTimeout);
+        window.searchTimeout = setTimeout(() => loadProducts(), 500);
+      });
+      document.getElementById('flavorFilter').addEventListener('change', loadProducts);
+      document.getElementById('sizeFilter').addEventListener('change', loadProducts);
+      document.getElementById('sort').addEventListener('change', loadProducts);
+      document.getElementById('clearFilters').addEventListener('click', () => {
+        document.getElementById('search').value = '';
+        document.getElementById('flavorFilter').value = '';
+        document.getElementById('sizeFilter').value = '';
+        document.getElementById('sort').value = 'relevance';
+        loadProducts();
+      });
+      
+      document.getElementById('checkout').addEventListener('click', () => {
+        if (Object.keys(cart).length === 0) return alert('Cart is empty.');
+        alert('Checkout – cart total: ' + document.getElementById('cartTotal').textContent);
+      });
+
+      loadProducts();
+      </script>
+    </div>
+  </div>
+</body>
+</html>

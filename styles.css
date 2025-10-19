@@ -1,0 +1,169 @@
+    /* ---------- Reset / Base ---------- */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px;
+    font-family: "Bricolage Grotesque", Oooh Baby, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #222;
+    }
+
+    /* ---------- Header / Layout ---------- */
+    .site-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 35px 46px;
+    margin-top: -16px;
+    margin-left: -60px;
+    margin-right: -60px;
+    background: #fff;
+    border-bottom: 1px solid #000;
+    }
+    .header-nav, .header-logo, .header-extra {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    }
+    .header-nav { justify-content: flex-start; }
+    .header-logo { justify-content: center; text-align: center; }
+    .header-logo img { margin: -70px;}
+
+    /* header-extra layout: stacked (icons on top, button below), aligned to right edge */
+    .header-extra {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 20px;
+    padding-right: 50px;
+    margin-left: -50px;
+    gap: 12px;
+    }
+
+    /* ---------- Navigation icons ---------- */
+    nav { margin-bottom: 12px; display: flex; gap: 16px; align-items: center; }
+    .nav-icons {
+    border-radius: 8px;
+    padding: 4px 14px;
+    margin-top: 40px;
+    margin-right: -30px;
+    display: flex;
+    gap: 62px;
+    align-items: center;
+    }
+    .nav-icons a {
+    color: #C83F6Fff;
+    text-decoration: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    font-size: 2.7rem;
+    position: relative;
+    padding: 6px 10px;
+    }
+    .nav-icons a i { font-size: 2.7rem; line-height: 1; }
+
+    .nav-icons .nav-label {
+    font-size: 12px;
+    line-height: 2;
+    margin-top: 0;
+    margin-bottom: -10px;
+    color: #111;
+    white-space: nowrap;
+    transition: opacity .18s ease, transform .18s ease;
+    opacity: 1;
+    transform: translateY(0);
+    display: inline-block;
+    }
+    .nav-icons a:hover .nav-label,
+    .nav-icons a:focus .nav-label {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    }
+    .nav-icons a .fa-solid,
+    .nav-icons a .fas { transition: color 0.18s; will-change: transform; }
+    .nav-icons a:hover .fa-solid,
+    .nav-icons a:hover .fas,
+    .nav-icons a:focus .fa-solid,
+    .nav-icons a:focus .fas {
+    color: #FF98B9;
+    animation: gentle-sway 2.2s cubic-bezier(.45,.99,.55,.95) forwards;
+    }
+    @keyframes gentle-sway {
+    0%   { transform: scale(1) rotate(-7deg); }
+    15%  { transform: scale(2) rotate(2deg); }
+    55%  { transform: scale(2) rotate(-1deg); }
+    100% { transform: scale(2) rotate(0deg); }
+    }
+    .nav-icons a:focus { outline: 2px solid white; outline-offset: 2px; }
+
+    /* ---------- Header-extra (social icons + order button) ---------- */
+    .header-extra .social-extra {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    }
+    .header-extra .social-row {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    justify-content: flex-start
+    }
+    .header-extra .extra-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #C83F6Fff;
+    padding: 6px;
+    margin-right: 39px;
+    }
+    .header-extra .extra-icon i {
+    font-size: 2.7rem;
+    line-height: 1;
+    }
+
+    /* ---------- Order button (scoped to header-extra to avoid changing other buttons) ---------- */
+    .header-extra .button {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 9999px; /* rounded as requested */
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #C83F6Fff;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #C83F6Fff;
+    background: transparent;
+    }
+    .header-extra .button:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    outline: 2px solid #ffc3d6;
+    box-shadow: 4px 5px 17px -4px #db789e;
+    }
+    .header-extra .button::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #FF98B9;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+    }
+    .header-extra .button:hover::before { width: 250%; }
+

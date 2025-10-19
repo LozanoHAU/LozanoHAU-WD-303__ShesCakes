@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Customer List – She's Cakes</title>
+  <link rel="icon" type="image/x-icon" href="images/minilogo.ico">
+  <meta name="description" content="View and manage customer orders for Sherlylyn Cakes." />
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Oooh+Baby&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Inter, system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    :root{
+      --accent-strong: #C83F6F;
+      --accent-light: #FF98B9;
+      --text-dark: #272727;
+      --muted: #9b9b9b;
+    }
+
+    .container-main {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      color: var(--accent-strong);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-family: "Bricolage Grotesque", system-ui;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .controls-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent-light);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .filter-select {
+      padding: 0.75rem 1rem;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: white;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      flex: 1;
+      min-width: 200px;
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent-light));
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .stat-card h3 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .stat-card p {
+      margin: 0.25rem 0 0 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    .customers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .customer-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .customer-card:hover {
+            box-shadow:
+        10px 0px 0 0 var(--accent-light),
+        0 10px 30px rgba(0,0,0,0.13);
+      transform: translateY(-2px);
+    }
+
+    .customer-card.expanded {
+      grid-column: 1 / -1;
+      background: linear-gradient(to bottom, #fff 0%, #fffafc 100%);
+            box-shadow:
+        10px 0px 0 0 var(--accent-light),
+        0 10px 30px rgba(0,0,0,0.13);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--accent-light);
+    }
+
+    .card-header-info {
+      flex: 1;
+    }
+
+    .order-id {
+      color: var(--accent-strong);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .customer-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-confirmed {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status-completed {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .card-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+    }
+
+    .info-item i {
+      color: var(--accent-strong);
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+    }
+
+    .info-item-content {
+      flex: 1;
+    }
+
+    .info-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.1rem;
+    }
+
+    .info-value {
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .card-actions {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid #f0f0f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .action-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--accent-light);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .action-btn:hover {
+      background: var(--accent-strong);
+      transform: translateY(-2px);
+    }
+
+    .action-btn.collapse-btn {
+      background: #6c757d;
+    }
+
+    .action-btn.collapse-btn:hover {
+      background: #5a6268;
+    }
+
+    .expanded-details {
+      display: none;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid #f0f0f0;
+    }
+
+    .customer-card.expanded .expanded-details {
+      display: block;
+    }
+
+    .expanded-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .detail-section {
+      background: white;
+      padding: 1.25rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .detail-section h3 {
+      color: var(--accent-strong);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .detail-item {
+      margin-bottom: 0.75rem;
+    }
+
+    .detail-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .detail-value {
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .special-instructions {
+      grid-column: 1 / -1;
+    }
+
+    .special-instructions .detail-value {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-light);
+      white-space: pre-wrap;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+    }
+
+    .action-btn.confirm-btn {
+      background: #28a745;
+    }
+
+    .action-btn.confirm-btn:hover {
+      background: #218838;
+    }
+
+    .action-btn.delete-btn {
+      background: #dc3545;
+    }
+
+    .action-btn.delete-btn:hover {
+      background: #c82333;
+    }
+
+    .expanded-actions {
+      display: none;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      justify-content: flex-end;
+      gap: 0.75rem;
+
+    }
+
+    .customer-card.expanded .expanded-actions {
+      display: flex;
+    }
+
+    @media (max-width: 1024px) {
+      .customers-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .expanded-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 1.8rem; }
+      .stats-row { flex-direction: column; }
+      
+      .card-body {
+        grid-template-columns: 1fr;
+      }
+
+      .expanded-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="header-nav" role="navigation" aria-label="Main nav">
+      <nav>
+        <div class="nav-icons">
+          <a href="/ADMINcustomers" id="nav-home" aria-label="Home" style="margin-left:40px">
+            <i class="fas fa-address-book" aria-hidden="true"></i>
+            <span class="nav-label">Customers</span>
+          </a>
+          <a href="/ADMINmessages" id="nav-contact" aria-label="Contact">
+            <i class="fas fa-envelope-open-text" aria-hidden="true"></i>
+            <span class="nav-label">Messages</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="header-logo">
+      <a href="/feature" style="text-decoration:none;color:inherit">
+        <img src="images/logo.png" width="224px" height="167px" alt="Sherlylyn Cakes logo">
+      </a>
+    </div>
+    <div class="header-extra" aria-hidden="true">
+      <div class="social-extra" role="group" aria-label="Social and order">
+        <a href="/feature#order"><button class="button" id="orderNow" onclick="logout()" type="button">Logout</button></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-main">
+    <div class="page-header">
+      <h1><i class="fas fa-users"></i> &nbsp; Orders</h1>
+      <p>View and manage all customer cake orders</p>
+    </div>
+
+    <div class="stats-row" id="stats">
+      <div class="stat-card">
+        <h3 id="totalOrders">0</h3>
+        <p>Total Orders</p>
+      </div>
+      <div class="stat-card" style="background: linear-gradient(135deg, #FFA500, #FF8C00);">
+        <h3 id="pendingOrders">0</h3>
+        <p>Pending Orders</p>
+      </div>
+      <div class="stat-card" style="background: linear-gradient(135deg, #28a745, #20c997);">
+        <h3 id="confirmedOrders">0</h3>
+        <p>Delivered Orders</p>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search by name, email, phone, or cake type...">
+      </div>
+      <select id="statusFilter" class="filter-select">
+        <option value="">Pending</option>
+        <option value="Confirmed">Delivered</option>
+      </select>
+      <button class="action-btn" onclick="loadCustomers()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+    </div>
+
+    <div id="loading" class="loading">
+      <i class="fas fa-spinner fa-spin"></i> Loading customer orders...
+    </div>
+
+    <div id="customersGrid" class="customers-grid" style="display:none;"></div>
+
+    <div id="noResults" class="no-results" style="display:none;">
+      <i class="fas fa-search" style="font-size:3rem;opacity:0.3;margin-bottom:1rem;"></i>
+      <p>No customers found matching your search.</p>
+    </div>
+    <br><br>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+    let allCustomers = [];
+
+    async function checkAuth() {
+      try {
+        const response = await fetch('http://localhost:3000/api/admin/check-auth', {
+          credentials: 'include'
+        });
+        const result = await response.json();
+        if (!result.authenticated) {
+          window.location.href = '/login';
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        window.location.href = '/login';
+      }
+    }
+
+    async function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        try {
+          const response = await fetch('http://localhost:3000/api/admin/logout', {
+            method: 'POST',
+            credentials: 'include'
+          });
+          const result = await response.json();
+          if (result.success) {
+            window.location.href = '/login';
+          }
+        } catch (error) {
+          console.error('Logout failed:', error);
+          alert('Logout failed. Please try again.');
+        }
+      }
+    }
+
+    async function loadCustomers() {
+      const loading = document.getElementById('loading');
+      const grid = document.getElementById('customersGrid');
+      const noResults = document.getElementById('noResults');
+      
+      loading.style.display = 'block';
+      grid.style.display = 'none';
+      noResults.style.display = 'none';
+
+      try {
+        const searchQuery = document.getElementById('searchInput').value;
+        const statusFilter = document.getElementById('statusFilter').value;
+        
+        let url = `${API_URL}/customers?`;
+        if (searchQuery) url += `search=${encodeURIComponent(searchQuery)}&`;
+        if (statusFilter) url += `status=${encodeURIComponent(statusFilter)}&`;
+
+        const response = await fetch(url);
+        const result = await response.json();
+
+
+        if (result.success) {
+          const allResponse = await fetch(`${API_URL}/customers`);
+          const allResult = await allResponse.json();
+          
+          allCustomers = result.data;
+          const displayData = statusFilter === '' 
+            ? result.data.filter(c => c.status !== 'Confirmed')
+            : result.data;
+          renderCustomers(displayData);
+          updateStats(allResult.success ? allResult.data : result.data);
+        } else {
+          console.error('Failed to load customers');
+        }
+      } catch (error) {
+        console.error('Error loading customers:', error);
+        alert('Failed to connect to server. Make sure the backend is running on port 3000.');
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function confirmOrder(id) {
+      if (!confirm('Are you sure you want to confirm this order?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/customers/${id}/confirm`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Order delivered successfully!');
+          loadCustomers();
+        } else {
+          alert('Failed to deliver order: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error confirming order:', error);
+        alert('Failed to confirm order. Please try again.');
+      }
+    }
+
+    async function deleteOrder(id) {
+      if (!confirm('Are you sure you want to CANCEL this order? This action cannot be undone!')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/customers/${id}`, {
+          method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Order deleted successfully!');
+          loadCustomers();
+        } else {
+          alert('Failed to delete order: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error deleting order:', error);
+        alert('Failed to delete order. Please try again.');
+      }
+    }
+
+    function renderCustomers(customers) {
+      const grid = document.getElementById('customersGrid');
+      const noResults = document.getElementById('noResults');
+
+      if (customers.length === 0) {
+        grid.style.display = 'none';
+        noResults.style.display = 'block';
+        return;
+      }
+
+      grid.innerHTML = '';
+      grid.style.display = 'grid';
+
+      customers.forEach(customer => {
+        const card = createCustomerCard(customer);
+        grid.appendChild(card);
+      });
+    }
+
+    function createCustomerCard(customer) {
+      const card = document.createElement('div');
+      card.className = 'customer-card';
+      card.dataset.customerId = customer.id;
+      
+      const statusClass = 
+        customer.status === 'Pending' ? 'status-pending' :
+        customer.status === 'Confirmed' ? 'status-confirmed' :
+        'status-completed';
+
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-header-info">
+            <div class="order-id">ORDER #${customer.id}</div>
+            <h2 class="customer-name">${customer.name}</h2>
+          </div>
+          <span class="status-badge ${statusClass}">${customer.status}</span>
+        </div>
+        
+        <div class="card-body">
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <div class="info-item-content">
+              <div class="info-label">Phone</div>
+              <div class="info-value">${customer.phone}</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <div class="info-item-content">
+              <div class="info-label">Email</div>
+              <div class="info-value">${customer.email}</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <i class="fas fa-birthday-cake"></i>
+            <div class="info-item-content">
+              <div class="info-label">Cake Type</div>
+              <div class="info-value">${customer.cakeType}</div>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <i class="fas fa-calendar"></i>
+            <div class="info-item-content">
+              <div class="info-label">Event Date</div>
+              <div class="info-value">${customer.eventDate}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expanded-details">
+          <div class="expanded-grid">
+            <div class="detail-section">
+              <h3><i class="fas fa-user"></i> Contact Information</h3>
+              <div class="detail-item">
+                <div class="detail-label">Full Name</div>
+                <div class="detail-value">${customer.name}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Phone Number</div>
+                <div class="detail-value">${customer.phone}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Email Address</div>
+                <div class="detail-value">${customer.email}</div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h3><i class="fas fa-calendar-alt"></i> Order Details</h3>
+              <div class="detail-item">
+                <div class="detail-label">Order ID</div>
+                <div class="detail-value">#${customer.id}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Date Ordered</div>
+                <div class="detail-value">${customer.dateOrdered}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Event Date</div>
+                <div class="detail-value">${customer.eventDate}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Status</div>
+                <div class="detail-value"><span class="status-badge ${statusClass}">${customer.status}</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h3><i class="fas fa-cake"></i> Cake Information</h3>
+              <div class="detail-item">
+                <div class="detail-label">Cake Type</div>
+                <div class="detail-value">${customer.cakeType}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Delivery Address</div>
+                <div class="detail-value">${customer.address}</div>
+              </div>
+            </div>
+
+            <div class="detail-section special-instructions">
+              <h3><i class="fas fa-clipboard-list"></i> Special Instructions</h3>
+              <div class="detail-value">${customer.message || 'No special instructions provided.'}</div>
+            </div>
+          </div>
+
+          <div class="expanded-actions">
+            ${customer.status === 'Pending' ? `
+              <button class="action-btn confirm-btn" onclick="confirmOrder(${customer.id})">
+                <i class="fas fa-check"></i> Deliver
+              </button>
+              <button class="action-btn delete-btn" onclick="deleteOrder(${customer.id})">
+                <i class="fas fa-trash"></i> Cancel
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-btn view-btn" onclick="toggleCard(${customer.id})">
+            <i class="fas fa-eye"></i> View Details
+          </button>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function toggleCard(id) {
+      const card = document.querySelector(`[data-customer-id="${id}"]`);
+      const isExpanded = card.classList.contains('expanded');
+      
+      document.querySelectorAll('.customer-card').forEach(c => {
+        c.classList.remove('expanded');
+        const btn = c.querySelector('.view-btn');
+        btn.innerHTML = '<i class="fas fa-eye"></i> View Details';
+        btn.classList.remove('collapse-btn');
+      });
+
+      if (!isExpanded) {
+        card.classList.add('expanded');
+        const btn = card.querySelector('.view-btn');
+        btn.innerHTML = '<i class="fas fa-times"></i> Close';
+        btn.classList.add('collapse-btn');
+        
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
+
+    function updateStats(customers) {
+      document.getElementById('totalOrders').textContent = customers.length;
+      document.getElementById('pendingOrders').textContent = 
+        customers.filter(c => c.status === 'Pending').length;
+      document.getElementById('confirmedOrders').textContent = 
+        customers.filter(c => c.status === 'Confirmed').length;
+    }
+
+    document.getElementById('searchInput').addEventListener('input', () => {
+      clearTimeout(window.searchTimeout);
+      window.searchTimeout = setTimeout(() => loadCustomers(), 500);
+    });
+
+    document.getElementById('statusFilter').addEventListener('change', loadCustomers);
+
+    loadCustomers();
+  </script>
+  <br><br><br>
+</body>
+</html>

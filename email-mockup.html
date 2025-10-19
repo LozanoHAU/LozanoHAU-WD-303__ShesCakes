@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Marketing Composer - She's Cakes</title>
+  <link rel="icon" type="image/x-icon" href="images/minilogo.ico">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url(images/feature-hero.png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; 
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .composer-panel, .preview-panel {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .panel-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 3px solid #C83F6F;
+    }
+
+    .panel-header h2 {
+      color: #C83F6F;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .panel-header p {
+      color: #666;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #C83F6F;
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .info-box {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #C83F6F;
+    }
+
+    .info-box h4 {
+      color: #C83F6F;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .info-box p {
+      color: #666;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .platform-selector {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .platform-option {
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .platform-option:hover {
+      border-color: #C83F6F;
+      background: #fff5f8;
+    }
+
+    .platform-option.selected {
+      border-color: #C83F6F;
+      background: #C83F6F;
+      color: white;
+    }
+
+    .platform-option i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-preview {
+      background: #C83F6F;
+      color: white;
+    }
+
+    .btn-preview:hover {
+      background: #a32f5a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(200, 63, 111, 0.4);
+    }
+
+    .btn-social {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-social:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .email-preview {
+      background: #f8f9fa;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .email-header {
+      background: #C83F6F;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .email-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .email-body {
+      padding: 2rem;
+      background: white;
+    }
+
+    .email-content {
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .email-signature {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid #e0e0e0;
+      color: #666;
+    }
+
+    .email-footer {
+      background: #333;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .cake-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #C83F6F;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 1rem 0;
+      transition: all 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #a32f5a;
+      transform: translateY(-2px);
+    }
+
+    /* Social Media Preview Styles */
+    .social-preview-container {
+      display: none;
+    }
+
+    .social-preview-container.active {
+      display: block;
+    }
+
+    .platform-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      background: white;
+      border: 2px solid #e4e6eb;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-btn:hover {
+      background: #f0f2f5;
+    }
+
+    .tab-btn.active {
+      background: #C83F6F;
+      color: white;
+      border-color: #C83F6F;
+    }
+
+    .mockup-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .platform-mockup {
+      display: none;
+    }
+
+    .platform-mockup.active {
+      display: block;
+    }
+
+    /* Facebook Mockup */
+    .fb-post {
+      padding: 1rem;
+    }
+
+    .fb-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .fb-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .fb-user-info h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #050505;
+    }
+
+    .fb-user-info p {
+      font-size: 0.8rem;
+      color: #65676b;
+    }
+
+    .fb-content {
+      margin-bottom: 1rem;
+      color: #050505;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .fb-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+
+    .fb-stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid #e4e6eb;
+      border-bottom: 1px solid #e4e6eb;
+      color: #65676b;
+      font-size: 0.9rem;
+    }
+
+    .fb-actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem;
+    }
+
+    .fb-action-btn {
+      flex: 1;
+      padding: 0.5rem;
+      background: none;
+      border: none;
+      color: #65676b;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+      border-radius: 6px;
+    }
+
+    .fb-action-btn:hover {
+      background: #f0f2f5;
+    }
+
+    /* Instagram Mockup */
+    .ig-post {
+      background: white;
+    }
+
+    .ig-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+
+    .ig-user {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .ig-avatar {
+      width: 35px;
+      height: 35px;
+      
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .ig-username {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .ig-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+
+    .ig-actions {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .ig-action-icon {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .ig-action-icon:hover {
+      opacity: 0.6;
+    }
+
+    .ig-likes {
+      padding: 0 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ig-caption {
+      padding: 0 1rem 1rem 1rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .ig-caption strong {
+      margin-right: 0.5rem;
+    }
+
+    /* Twitter/X Mockup */
+    .tw-post {
+      padding: 1rem;
+    }
+
+    .tw-header {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tw-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .tw-user-info {
+      flex: 1;
+    }
+
+    .tw-user-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .tw-handle {
+      color: #536471;
+      font-size: 0.9rem;
+    }
+
+    .tw-content {
+      margin: 0.75rem 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .tw-image {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin: 0.75rem 0;
+    }
+
+    .tw-stats {
+      display: flex;
+      gap: 1.5rem;
+      color: #536471;
+      font-size: 0.85rem;
+      margin: 0.75rem 0;
+      padding: 0.75rem 0;
+      border-top: 1px solid #eff3f4;
+      border-bottom: 1px solid #eff3f4;
+    }
+
+    .tw-actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 0;
+    }
+
+    .tw-action-btn {
+      color: #536471;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .tw-action-btn:hover {
+      color: #1d9bf0;
+    }
+
+    /* TikTok Mockup */
+    .tt-container {
+      background: #000;
+      position: relative;
+      height: 600px;
+    }
+
+    .tt-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tt-sidebar {
+      position: absolute;
+      right: 1rem;
+      bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .tt-action {
+      color: white;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .tt-action-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .tt-action-text {
+      font-size: 0.75rem;
+    }
+
+    .tt-caption {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      right: 5rem;
+      color: white;
+    }
+
+    .tt-username {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .tt-description {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .promo-badge {
+      display: inline-block;
+      background: #C83F6F;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="composer-panel">
+      <div class="panel-header">
+        <h2><i class="fas fa-pen-fancy"></i> Compose Email</h2>
+      </div>
+
+      <div id="replyInfo" class="info-box" style="display: none;">
+        <h4><i class="fas fa-reply"></i> Replying to Customer</h4>
+        <p id="customerInfo"></p>
+      </div>
+
+      <div class="form-group">
+        <div class="platform-selector">
+          <div class="platform-option selected" onclick="selectPlatform('email')" id="platform-email">
+            <i class="fas fa-envelope"></i>
+            <div>Email</div>
+          </div>
+          <div class="platform-option" onclick="selectPlatform('social')" id="platform-social">
+            <i class="fas fa-share-alt"></i>
+            <div>Social Media</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject / Campaign Title</label>
+        <input type="text" id="subject" placeholder="Enter email subject or campaign title">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Marketing Message</label>
+        <textarea id="message" placeholder="Write your marketing message here..."></textarea>
+      </div>
+
+      <div class="form-group" >
+        <label for="promoCode">Promo Code (Optional)</label>
+        <input type="text" id="promoCode" placeholder="e.g., SWEET20">
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <div class="panel-header">
+        <h2><i class="fas fa-desktop"></i>Preview</h2>
+      </div>
+
+      <div id="emailPreviewContent" class="email-preview">
+        <div class="email-header">
+          <h1>She's Cakes</h1>
+          <p>Sweet Moments, Beautifully Crafted</p>
+        </div>
+        <div class="email-body">
+          <h2 id="previewSubject">Welcome to She's Cakes!</h2>
+          <img src="images/landing.png" alt="Delicious cake" class="cake-image" onerror="this.style.display='none'">
+          <div class="email-content" id="previewMessage">
+            <p>Start composing your marketing message to see it here...</p>
+          </div>
+          <div id="promoSection" style="display: none;">
+            <div style="background: #fff5f8; padding: 1.5rem; border-radius: 8px; border: 2px dashed #C83F6F; text-align: center;">
+              <h3 style="color: #C83F6F; margin-bottom: 0.5rem;">Special Offer!</h3>
+              <p style="font-size: 1.5rem; font-weight: bold; color: #333;" id="previewPromo"></p>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <a href="#" class="cta-button">Order Now</a>
+          </div>
+          <div class="email-signature">
+            <p><strong>She's Cakes Team</strong></p>
+            <p>📧 https://www.facebook.com/sherlylyncakes | 📞 0961 344 3244</p>
+            <p>📍 Sitio Bana, Dolores, Mabalacat, Philippines</p>
+          </div>
+        </div>
+        <div class="email-footer">
+          <p>&copy; 2025 She's Cakes. All rights reserved.</p>
+          <p style="margin-top: 0.5rem; opacity: 0.8;">You're receiving this because you subscribed to our newsletter.</p>
+        </div>
+      </div>
+
+      <div id="socialPreviewContent" class="social-preview-container">
+        <div class="platform-tabs">
+          <button class="tab-btn active" onclick="switchSocialPlatform('facebook')">
+            <i class="fab fa-facebook"></i> Facebook
+          </button>
+          <button class="tab-btn" onclick="switchSocialPlatform('instagram')">
+            <i class="fab fa-instagram"></i> Instagram
+          </button>
+          <button class="tab-btn" onclick="switchSocialPlatform('twitter')">
+            <i class="fab fa-twitter"></i> X (Twitter)
+          </button>
+          <button class="tab-btn" onclick="switchSocialPlatform('tiktok')">
+            <i class="fab fa-tiktok"></i> TikTok
+          </button>
+        </div>
+
+        <div class="mockup-container">
+          <!-- Facebook Mockup -->
+          <div class="platform-mockup active" id="facebook">
+            <div class="fb-post">
+              <div class="fb-header">
+<img src="images/logo.png" alt="Cake" class="fb-avatar">
+                <div class="fb-user-info">
+                  <h3>She's Cakes</h3>
+                  <p>Just now · <i class="fas fa-globe-americas"></i></p>
+                </div>
+              </div>
+              <div class="fb-content" id="fbContent">
+                Check out our amazing cakes! 🎂✨ Perfect for any celebration!
+              </div>
+              <div id="fbPromo" class="promo-badge" style="display: none; margin-bottom: 1rem;"></div>
+              <img src="images/landing.png" alt="Cake" class="fb-image" onerror="this.src='https://via.placeholder.com/600x400/C83F6F/FFFFFF?text=She%27s+Cakes'">
+              <div class="fb-actions">
+                <button class="fb-action-btn">
+                  <i class="far fa-thumbs-up"></i> Like
+                </button>
+                <button class="fb-action-btn">
+                  <i class="far fa-comment"></i> Comment
+                </button>
+                <button class="fb-action-btn">
+                  <i class="far fa-share-square"></i> Share
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instagram Mockup -->
+          <div class="platform-mockup" id="instagram">
+            <div class="ig-post">
+              <div class="ig-header">
+                <div class="ig-user">
+                    <img src="images/logo.png" alt="Cake" class="ig-avatar">
+                  <span class="ig-username">shescakes</span>
+                </div>
+                <i class="fas fa-ellipsis-h"></i>
+              </div>
+              <img src="images/landing.png" alt="Cake" class="ig-image" onerror="this.src='https://via.placeholder.com/600x600/C83F6F/FFFFFF?text=She%27s+Cakes'">
+              <div class="ig-actions">
+                <i class="far fa-heart ig-action-icon"></i>
+                <i class="far fa-comment ig-action-icon"></i>
+                <i class="far fa-paper-plane ig-action-icon"></i>
+              </div>
+              <div class="ig-caption">
+                <strong>shescakes</strong>
+                <span id="igContent">Check out our amazing cakes! 🎂✨ Perfect for any celebration!</span>
+                <div id="igPromo" class="promo-badge" style="display: none; margin-top: 0.5rem;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Twitter/X Mockup -->
+          <div class="platform-mockup" id="twitter">
+            <div class="tw-post">
+              <div class="tw-header">
+<img src="images/logo.png" alt="Cake" class="tw-avatar">
+                <div class="tw-user-info">
+                  <div>
+                    <span class="tw-user-name">She's Cakes</span>
+                    <span class="tw-handle">@shescakes · 1m</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tw-content" id="twContent">
+                Check out our amazing cakes! 🎂✨ Perfect for any celebration!
+              </div>
+              <div id="twPromo" class="promo-badge" style="display: none; margin-bottom: 0.75rem;"></div>
+              <img src="images/landing.png" alt="Cake" class="tw-image" onerror="this.src='https://via.placeholder.com/600x400/C83F6F/FFFFFF?text=She%27s+Cakes'">
+              <div class="tw-actions">
+                <i class="far fa-comment tw-action-btn"></i>
+                <i class="fas fa-retweet tw-action-btn"></i>
+                <i class="far fa-heart tw-action-btn"></i>
+                <i class="far fa-bookmark tw-action-btn"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- TikTok Mockup -->
+          <div class="platform-mockup" id="tiktok">
+            <div class="tt-container">
+              <img src="images/landing.png" alt="Cake" class="tt-video" onerror="this.src='https://via.placeholder.com/600x600/C83F6F/FFFFFF?text=She%27s+Cakes+Video'">
+              <div class="tt-sidebar">
+                <div class="tt-action">
+                  <div class="tt-action-icon"><i class="fas fa-heart"></i></div>
+
+                </div>
+                <div class="tt-action">
+                  <div class="tt-action-icon"><i class="fas fa-comment"></i></div>
+
+                </div>
+                <div class="tt-action">
+                  <div class="tt-action-icon"><i class="fas fa-share"></i></div>
+                </div>
+              </div>
+              <div class="tt-caption">
+                <div class="tt-username">@shescakes</div>
+                <div class="tt-description" id="ttContent">
+                  Check out our amazing cakes! 🎂✨ Perfect for any celebration!
+                </div>
+                <div id="ttPromo" class="promo-badge" style="display: none;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedPlatform = 'email';
+    let currentSocialPlatform = 'facebook';
+
+    window.addEventListener('load', () => {
+      const messageData = sessionStorage.getItem('replyToMessage');
+      if (messageData) {
+        const message = JSON.parse(messageData);
+        document.getElementById('replyInfo').style.display = 'block';
+        document.getElementById('customerInfo').innerHTML = `
+          <strong>${message.fullName}</strong> (${message.email})<br>
+          Original Subject: ${message.subject}
+        `;
+        document.getElementById('subject').value = `Re: ${message.subject}`;
+        sessionStorage.removeItem('replyToMessage');
+      }
+
+      document.getElementById('subject').addEventListener('input', updatePreview);
+      document.getElementById('message').addEventListener('input', updatePreview);
+      document.getElementById('promoCode').addEventListener('input', updatePreview);
+    });
+
+    function selectPlatform(platform) {
+      selectedPlatform = platform;
+      document.querySelectorAll('.platform-option').forEach(el => {
+        el.classList.remove('selected');
+      });
+      document.getElementById(`platform-${platform}`).classList.add('selected');
+
+      if (platform === 'email') {
+        document.getElementById('emailPreviewContent').style.display = 'block';
+        document.getElementById('socialPreviewContent').classList.remove('active');
+      } else {
+        document.getElementById('emailPreviewContent').style.display = 'none';
+        document.getElementById('socialPreviewContent').classList.add('active');
+        updateSocialPreview();
+      }
+    }
+
+    function switchSocialPlatform(platform) {
+      currentSocialPlatform = platform;
+      
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.tab-btn').classList.add('active');
+
+      document.querySelectorAll('.platform-mockup').forEach(mock => mock.classList.remove('active'));
+      document.getElementById(platform).classList.add('active');
+    }
+
+    function updatePreview() {
+      const subject = document.getElementById('subject').value || 'Welcome to She\'s Cakes!';
+      const message = document.getElementById('message').value || 'Start composing your marketing message to see it here...';
+      const promoCode = document.getElementById('promoCode').value;
+
+      document.getElementById('previewSubject').textContent = subject;
+      document.getElementById('previewMessage').innerHTML = `<p>${message.replace(/\n/g, '</p><p>')}</p>`;
+      
+      if (promoCode) {
+        document.getElementById('promoSection').style.display = 'block';
+        document.getElementById('previewPromo').textContent = promoCode;
+      } else {
+        document.getElementById('promoSection').style.display = 'none';
+      }
+
+      updateSocialPreview();
+    }
+
+    function updateSocialPreview() {
+      const subject = document.getElementById('subject').value || 'Welcome to She\'s Cakes!';
+      const message = document.getElementById('message').value || 'Check out our amazing cakes! 🎂✨ Perfect for any celebration!';
+      const promoCode = document.getElementById('promoCode').value;
+      
+      const content = `${message} ${subject ? '\n\n' + subject : ''}`;
+      
+      document.getElementById('fbContent').textContent = content;
+      if (promoCode) {
+        document.getElementById('fbPromo').style.display = 'inline-block';
+        document.getElementById('fbPromo').textContent = `🎉 Use code: ${promoCode}`;
+      } else {
+        document.getElementById('fbPromo').style.display = 'none';
+      }
+      
+      document.getElementById('igContent').textContent = content;
+      if (promoCode) {
+        document.getElementById('igPromo').style.display = 'inline-block';
+        document.getElementById('igPromo').textContent = `🎉 Use code: ${promoCode}`;
+      } else {
+        document.getElementById('igPromo').style.display = 'none';
+      }
+      
+      document.getElementById('twContent').textContent = content.substring(0, 280);
+      if (promoCode) {
+        document.getElementById('twPromo').style.display = 'inline-block';
+        document.getElementById('twPromo').textContent = `🎉 ${promoCode}`;
+      } else {
+        document.getElementById('twPromo').style.display = 'none';
+      }
+      
+      document.getElementById('ttContent').textContent = content;
+      if (promoCode) {
+        document.getElementById('ttPromo').style.display = 'inline-block';
+        document.getElementById('ttPromo').textContent = `🎉 Use code: ${promoCode}`;
+      } else {
+        document.getElementById('ttPromo').style.display = 'none';
+      }
+    }
+
+    function previewEmail() {
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const promoCode = document.getElementById('promoCode').value;
+
+      if (!subject || !message) {
+        alert('Please fill in the subject and message fields.');
+        return;
+      }
+
+      selectPlatform('email');
+    }
+
+    function previewSocial() {
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      if (!subject || !message) {
+        alert('Please fill in the subject and message fields.');
+        return;
+      }
+
+      selectPlatform('social');
+    }
+  </script>
+</body>
+</html>

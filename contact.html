@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact Us – She's Cakes</title>
+<link rel="icon" type="image/x-icon" href="images/minilogo.ico">
+<meta name="description" content="Contact Sherlylyn Cakes for custom orders, questions, or feedback." />
+<link href="styles.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Oooh+Baby&display=swap" rel="stylesheet">
+<style>
+body{font-family:Inter, system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+:root{
+--accent-strong: #C83F6F;
+--accent-light: #FF98B9;
+--text-dark: #272727;
+--muted: #9b9b9b;
+}
+
+.div-bg-1 {
+padding: 2rem;
+box-sizing: border-box;
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 1.5rem;
+width: 100%;
+flex-wrap: wrap;
+}
+
+.login-box {
+position: relative;
+width: 60%;
+min-width: 300px;
+padding: 2.5rem;
+margin: 2rem auto;
+box-sizing: border-box;
+border-radius: 12px;
+background: white;
+box-shadow:
+10px 0px 0 0 var(--accent-light),
+0 10px 30px rgba(0,0,0,0.13);
+transform: none;
+}
+
+.login-box p:first-child {
+margin: 0 0 6px;
+padding: 0;
+color: var(--accent-strong);
+text-align: center;
+font-size: 1.5rem;
+font-weight: 800;
+letter-spacing: 1px;
+font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.login-box .subtitle {
+color: var(--accent-dark);
+font-size: 0.95rem;
+margin-top: -6px;
+margin-bottom: 20px;
+text-align:left;
+line-height:1.4;
+}
+
+.login-box .user-box { position: relative; margin-bottom: 20px;}
+
+.login-box .user-box input,
+.login-box .user-box textarea,
+.login-box .user-box select {
+width: 100%;
+padding: 10px 0;
+font-size: 16px;
+color: var(--text-dark);
+margin-bottom: 18px;
+border: none;
+border-bottom: 1px solid black;
+outline: none;
+background: transparent;
+box-sizing: border-box;
+font-family: inherit;
+}
+
+.login-box .user-box textarea {
+padding:10px;
+margin-top:15px;
+border:1px solid var(--accent-strong);
+resize:vertical;
+background-color: #ffecf2;
+border-radius:6px;
+}
+
+.login-box .user-box label {
+position: absolute;
+top: 0;
+left: 0;
+padding: 10px 0;
+font-size: 14px;
+color: var(--accent-light);
+pointer-events: none;
+transition: .25s;
+font-weight: 600;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label,
+.login-box .user-box textarea:focus ~ label,
+.login-box .user-box textarea:valid ~ label {
+top: -20px;
+left: 0;
+color: var(--accent-strong);
+font-size: 12px;
+}
+
+.btn-animated {
+--anim-color: var(--accent-light);
+position: relative;
+display: inline-block;
+padding: 10px 22px;
+font-weight: 800;
+color: var(--accent-strong);
+font-size: 16px;
+text-decoration: none;
+text-transform: uppercase;
+overflow: hidden;
+transition: .25s ease;
+margin-top: 0;
+letter-spacing: 3px;
+background: #ffffff;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+box-sizing: border-box;
+}
+
+.btn-animated:hover {
+background: var(--accent-strong);
+color: #fff;
+--anim-color: #ffffff;
+border-radius: 6px;
+}
+
+.btn-animated:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+
+.btn-animated span { position: absolute; display: block; z-index: 1; pointer-events:none; }
+.btn-animated .btn-text { position: relative; z-index: 3; color: inherit; }
+
+.btn-animated span:nth-child(1) {
+top: 0;
+left: -100%;
+width: 100%;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--anim-color));
+animation: btn-anim1 1.5s linear infinite;
+}
+
+@keyframes btn-anim1 {
+0% { left: -100%; }
+50%,100% { left: 100%; }
+}
+
+.btn-animated span:nth-child(2) {
+top: -100%;
+right: 0;
+width: 2px;
+height: 100%;
+background: linear-gradient(180deg, transparent, var(--anim-color));
+animation: btn-anim2 1.5s linear infinite;
+animation-delay: .375s;
+}
+
+@keyframes btn-anim2 {
+0% { top: -100%; }
+50%,100% { top: 100%; }
+}
+
+.btn-animated span:nth-child(3) {
+bottom: 0;
+right: -100%;
+width: 100%;
+height: 2px;
+background: linear-gradient(270deg, transparent, var(--anim-color));
+animation: btn-anim3 1.5s linear infinite;
+animation-delay: .75s;
+}
+
+@keyframes btn-anim3 {
+0% { right: -100%; }
+50%,100% { right: 100%; }
+}
+
+.btn-animated span:nth-child(4) {
+bottom: -100%;
+left: 0;
+width: 2px;
+height: 100%;
+background: linear-gradient(360deg, transparent, var(--anim-color));
+animation: btn-anim4 1.5s linear infinite;
+animation-delay: 1.125s;
+}
+
+@keyframes btn-anim4 {
+0% { bottom: -100%; }
+50%,100% { bottom: 100%; }
+}
+
+.login-box form a { text-decoration: none; }
+
+.login-box p:last-child {
+color: var(--muted);
+font-size: 13px;
+margin-top: 14px;
+text-align:center;
+}
+
+.login-box a.a2 { color: var(--accent-strong); text-decoration: none; }
+.login-box a.a2:hover { background: transparent; color: #aaa; border-radius: 5px; }
+
+.btn-clear {
+padding:10px 20px;
+font-weight:700;
+color: var(--text-dark);
+background:#ffffff;
+border:2px solid var(--accent-light);
+border-radius:6px;
+cursor:pointer;
+transition:.18s;
+}
+.btn-clear:hover { transform: translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.06); }
+
+.sidebar {
+width: 16rem;
+background:#ffe8ef;
+border-radius:8px;
+box-shadow:0 6px 18px rgba(15,23,42,0.08);
+padding:1rem;
+color:var(--accent-strong);
+box-sizing:border-box;
+display:flex;
+flex-direction:column;
+gap:0.5rem;
+}
+
+.sidebar .card-inner{
+border:4px dotted var(--accent-strong);
+padding:1rem;
+border-radius:6px;
+background:transparent;
+}
+
+.sidebar h2{
+margin:0 0 0.25rem 0;
+font-size:1rem;
+font-style:italic;
+color:var(--accent-strong);
+}
+
+.contact-list{
+margin:0;
+padding:0;
+list-style:none;
+color:var(--accent-strong);
+font-size:0.95rem;
+line-height:1.4;
+}
+
+.contact-list li{
+margin-bottom:0.75rem;
+}
+
+.label{
+display:block;
+font-size:0.72rem;
+font-weight:700;
+color:var(--accent-strong);
+margin-bottom:0.25rem;
+}
+
+.value{
+display:block;
+font-size:0.9rem;
+color:var(--accent-strong);
+text-decoration:none;
+word-wrap:break-word;
+}
+
+.small-note{
+font-size:0.72rem;
+color:var(--accent-strong);
+margin-top:0.25rem;
+opacity:0.9;
+}
+
+.facebook-link{
+color:var(--accent-strong);
+text-decoration:none;
+font-weight:600;
+}
+
+.facebook-link:hover{text-decoration:underline;}
+
+.page-wrap {
+flex: 0 0 calc(40% - 1.5rem);
+max-width: 40%;
+box-sizing: border-box;
+display: flex;
+align-items: flex-start;
+justify-content: flex-end;
+padding: 0;
+margin-top:30px;
+}
+
+.page-wrap .sidebar {
+width: 100%;
+max-width: 100%;
+}
+
+.appended-contact-info h3 {
+font-size: 1rem;
+margin: 0 0 8px 0;
+color: var(--accent-strong);
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.appended-contact-info .info-item {
+font-size: 0.9rem;
+margin-bottom: 16px;
+display: flex;
+align-items: center;
+gap: 8px;
+color: var(--accent-strong);
+}
+
+.appended-contact-info .info-item i {
+color: var(--accent-strong);
+min-width: 16px;
+}
+
+.message-notification {
+padding: 12px 20px;
+border-radius: 6px;
+margin-bottom: 20px;
+text-align: center;
+font-weight: 600;
+display: none;
+}
+
+.message-notification.success {
+background-color: #d4edda;
+color: #155724;
+border: 1px solid #c3e6cb;
+}
+
+.message-notification.error {
+background-color: #f8d7da;
+color: #721c24;
+border: 1px solid #f5c6cb;
+}
+
+@media (max-width:480px){
+.page-wrap{padding:1rem; justify-content:center;}
+.sidebar{width:100%; max-width:320px;}
+}
+
+@media (max-width: 520px) {
+.login-box { padding: 1.6rem; width: 92%; }
+.login-box p:first-child { font-size: 1.2rem; }
+.btn-animated { letter-spacing: 1px; padding: 9px 16px; }
+.btn-animated .btn-text { font-size: 14px; }
+}
+
+.map {
+width: 100%;
+padding: 2rem 0;
+
+}
+
+.map-container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 2rem;
+}
+
+.map-header {
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.map-header h2 {
+font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+font-size: 2rem;
+font-weight: 800;
+color: var(--accent-strong);
+margin: 0 0 0.5rem 0;
+letter-spacing: 0.5px;
+}
+
+.map-header p {
+color: var(--text-dark);
+font-size: 1rem;
+margin: 0;
+}
+
+.map-wrapper {
+background: white;
+border-radius: 12px;
+padding: 1rem;
+box-shadow: 
+10px 0px 0 0 var(--accent-light),
+0 10px 30px rgba(0,0,0,0.13);
+overflow: hidden;
+}
+
+#googleMap {
+width: 100%;
+height: 450px;
+border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+.map-container {
+padding: 0 1rem;
+}
+
+.map-header h2 {
+font-size: 1.5rem;
+}
+
+#googleMap {
+height: 350px;
+}
+}
+
+@media (max-width: 480px) {
+#googleMap {
+height: 300px;
+}
+}
+</style>
+</head>
+<body>
+<header class="site-header" role="banner">
+<div class="header-nav" role="navigation" aria-label="Main nav">
+<nav>
+<div class="nav-icons">
+<a href="/feature" id="nav-home" aria-label="Home">
+  <i class="fas fa-home" aria-hidden="true"></i>
+  <span class="nav-label">Home</span>
+</a>
+
+<a href="/display" id="nav-display" aria-label="Display">
+  <i class="fas fa-birthday-cake" aria-hidden="true"></i>
+  <span class="nav-label">Easy Bake</span>
+</a>
+
+<a href="/contact" id="nav-contact" aria-label="Contact">
+  <i class="fas fa-phone" aria-hidden="true"></i>
+  <span class="nav-label">Contact</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="header-logo">
+<a href="#" style="text-decoration:none;color:inherit">
+<img src="images/logo.png" width="224" height="167" alt="Sherlylyn Cakes logo">
+</a>
+</div>
+<div class="header-extra" aria-hidden="true">
+<div class="social-extra" role="group" aria-label="Social and order">
+<div class="social-row" aria-hidden="false">
+<a class="extra-icon" href="https://www.facebook.com/sherlylyncakes" target="_blank" rel="noopener" aria-label="Facebook">
+  <i class="fab fa-facebook-f" aria-hidden="true"></i>
+</a>
+<a class="extra-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+  <i class="fab fa-instagram" aria-hidden="true"></i>
+</a>
+</div>
+<a href="/feature#order"><button class="button" id="orderNow" type="button">Order Now</button></a>
+</div>
+</div>
+</header>
+
+<div class="div-bg-1">
+<div class="login-box">
+<p>Contact Us</p>
+<br>
+<p class="subtitle">Have a question? Fill out the form below and we'll get back to you as soon as we can.</p>
+<br>
+
+<div id="messageNotification" class="message-notification"></div>
+
+<form id="contactForm" aria-label="Contact form">
+<div class="user-box">
+<input required id="fullName" name="fullName" type="text" aria-required="true">
+<label for="fullName">Full name *</label>
+</div>
+<div class="user-box">
+<input required id="contactNumber" name="contactNumber" type="tel" aria-required="true">
+<label for="contactNumber">Contact number *</label>
+</div>
+<div class="user-box">
+<input required id="email" name="email" type="email" aria-required="true">
+<label for="email">Email *</label>
+</div>
+<div class="user-box">
+<input required id="subject" name="subject" type="text" aria-required="true">
+<label for="subject">Subject *</label>
+</div>
+<div class="user-box"><label for="message">Message *</label><br>
+<textarea id="message" name="message" rows="5" required></textarea>
+</div>
+<div class="user-box">
+<label for="contactMethod" style="position:static;padding:0;margin-bottom:8px;color:var(--accent-light);font-size:14px;">Preferred contact method</label>
+<select id="contactMethod" name="contactMethod" style="width:100%;padding:10px;background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--text-dark);">
+  <option value="phone">Phone / SMS</option>
+  <option value="email">Email</option>
+  <option value="facebook">Facebook</option>
+</select>
+</div>
+<div style="display:flex;gap:12px;justify-content:center;margin-top:18px;">
+<button type="submit" class="btn-animated" aria-label="Send message">
+  <span></span><span></span><span></span><span></span>
+  <span class="btn-text">Send</span>
+</button>
+<button type="reset" class="btn-clear">Clear</button>
+</div>
+</form>
+<br>
+<p style="color:var(--text-dark);font-size:13px;margin-top:14px;text-align:left;">By sending this message you agree we may contact you about your inquiry. We won't share your information publicly.</p>
+</div>
+
+<div class="page-wrap">
+<aside class="sidebar" aria-label="Contact details sidebar">
+<div class="card-inner" role="region" aria-labelledby="contact-heading">
+<h2 id="contact-heading">Our contact details</h2>
+<br>
+<ul class="contact-list">
+  <li>
+    <span class="label">Facebook</span>
+    <a class="value facebook-link" href="https://www.facebook.com/sherlylyncakes" target="_blank" rel="noopener noreferrer">/sherlylyncakes</a>
+  </li>
+  <br>
+  <li>
+    <span class="label">Address</span>
+    <span class="value">Sitio Bana, Dolores, Mabalacat, Philippines</span>
+  </li>
+  <br>
+  <li>
+    <span class="label">Hours</span>
+    <span class="value">Mon–Sun 9:00 AM – 5:00 PM</span>
+  </li>
+</ul>
+<br>
+<hr style="margin:14px 0;border:none;border-top:1px solid black" />
+<p class="small">Need to speak directly? Add your phone number in the form and choose 
+  <strong>Phone</strong> as your preferred contact method. For urgent orders, call or message us on Facebook.
+</p>
+<br>
+<div class="appended-contact-info" style="margin-top:12px">
+  <h3><i class="fas fa-info-circle"></i> Get in Touch</h3>
+  <br>
+  <div class="info-item"><i class="fas fa-birthday-cake"></i> <span>Custom cakes for all occasions</span></div>
+  <div class="info-item"><i class="fas fa-heart"></i> <span>Made with love and finest ingredients</span></div>
+  <div class="info-item"><i class="fas fa-clock"></i> <span>Fast response within 24 hours</span></div>
+  <div class="info-item"><i class="fas fa-star"></i> <span>Premium quality guaranteed</span></div>
+  <div class="info-item"><i class="fas fa-truck"></i> <span>Delivery available in local area</span></div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+
+<div class="map">
+<div class="map-container">
+<div class="map-header">
+<h2>Find Us Here</h2>
+<p>Visit us at our location in Mabalacat, Pampanga</p>
+</div>
+<div class="map-wrapper">
+<div id="googleMap"></div>
+</div>
+</div>
+</div>
+<br><br>
+<script>
+const API_URL = 'http://localhost:3000';
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+e.preventDefault();
+
+const submitBtn = e.target.querySelector('button[type="submit"]');
+const notification = document.getElementById('messageNotification');
+
+submitBtn.disabled = true;
+submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+
+notification.style.display = 'none';
+
+const formData = {
+fullName: document.getElementById('fullName').value,
+contactNumber: document.getElementById('contactNumber').value,
+email: document.getElementById('email').value,
+subject: document.getElementById('subject').value,
+message: document.getElementById('message').value,
+contactMethod: document.getElementById('contactMethod').value
+};
+
+try {
+const response = await fetch(`${API_URL}/api/messages`, {
+method: 'POST',
+headers: {
+  'Content-Type': 'application/json',
+},
+body: JSON.stringify(formData)
+});
+
+const result = await response.json();
+
+if (result.success) {
+notification.textContent = '✓ Message sent successfully! We\'ll get back to you soon.';
+notification.className = 'message-notification success';
+notification.style.display = 'block';
+
+document.getElementById('contactForm').reset();
+
+notification.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+} else {
+throw new Error(result.message || 'Failed to send message');
+}
+} catch (error) {
+console.error('Error:', error);
+
+notification.textContent = '✗ Failed to send message. Please try again or contact us directly on Facebook.';
+notification.className = 'message-notification error';
+notification.style.display = 'block';
+} finally {
+submitBtn.disabled = false;
+submitBtn.querySelector('.btn-text').textContent = 'Send';
+}
+});
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIT7PhX7uoeJgpUPMUG6-RZJSFwm1kqA&callback=initMap" async defer></script>
+
+<script>
+function initMap() {
+const location = { lat: 16.224862235253294, lng: 120.5003752748467 };
+
+const map = new google.maps.Map(document.getElementById('googleMap'), {
+center: location,
+zoom: 15,
+mapTypeControl: true,
+streetViewControl: true,
+fullscreenControl: true,
+zoomControl: true,
+styles: [
+{
+featureType: "poi",
+elementType: "labels",
+stylers: [{ visibility: "on" }]
+}
+]
+});
+
+const marker = new google.maps.Marker({
+position: location,
+map: map,
+title: "She's Cakes",
+animation: google.maps.Animation.DROP
+});
+
+const infoWindow = new google.maps.InfoWindow({
+content: `
+<div style="font-family: system-ui, -apple-system, sans-serif; padding: 8px;">
+<h3 style="margin: 0 0 8px 0; color: #C83F6F; font-size: 16px;">She's Cakes</h3>
+<p style="margin: 0; font-size: 14px; color: #272727;">Sitio Bana, Dolores, Mabalacat</p>
+<p style="margin: 4px 0 0 0; font-size: 13px; color: #9b9b9b;">Mon–Sun: 9:00 AM – 5:00 PM</p>
+</div>
+`
+});
+
+marker.addListener('click', function() {
+infoWindow.open(map, marker);
+});
+
+infoWindow.open(map, marker);
+}
+</script>
+</body>
+</html>
